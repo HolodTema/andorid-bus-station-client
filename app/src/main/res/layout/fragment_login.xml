@@ -75,11 +75,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/text_caption_error"
-        tools:text="Error: some error"
+        android:text="@string/unable_to_log_in_check_your_email_and_password"
         android:textColor="#F44336"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/button_login"
         android:layout_marginTop="8dp"/>
+
+    <ProgressBar
+        android:id="@+id/progress_login_loading"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/button_login"
+        app:layout_constraintStart_toStartOf="@+id/button_login"
+        app:layout_constraintTop_toBottomOf="@+id/button_login"/>
 
     <TextView
         android:id="@+id/text_create_account"

@@ -16,6 +16,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -48,8 +49,10 @@ abstract class NetworkModule {
             tokenHttpInterceptor: TokenHttpInterceptor
         ): OkHttpClient {
             return OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
                 .addInterceptor(tokenHttpInterceptor)
+                .addInterceptor(loggingInterceptor)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
                 .build()
         }
 
@@ -57,7 +60,6 @@ abstract class NetworkModule {
         @Singleton
         fun provideKotlinxSerializationJson(): Json {
             return Json {
-                coerceInputValues = true
                 ignoreUnknownKeys = true
             }
         }

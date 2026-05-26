@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_from_login_to_register"
             app:destination="@id/fragment_register" />
+        <action
+            android:id="@+id/action_from_login_to_shop"
+            app:destination="@id/fragment_shop" />
     </fragment>
 
     <fragment
@@ -20,6 +23,15 @@
         <action
             android:id="@+id/action_from_register_to_login"
             app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/action_from_register_to_shop"
+            app:destination="@id/fragment_shop" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_shop"
+        android:name="com.terabyte.busstationclient.ui.fragment.ShopFragment"
+        android:label="Shop">
     </fragment>
 
 </navigation>

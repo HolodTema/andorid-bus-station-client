@@ -2,7 +2,7 @@ package com.terabyte.busstationclient.data.storage.remote.model
 
 import kotlinx.serialization.Serializable
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class User(
     val id: Int,
     val name: String,
@@ -11,7 +11,7 @@ data class User(
     val password: String,
 )
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class UserRegisterRequest(
     val name: String,
     val surname: String,
@@ -19,7 +19,7 @@ data class UserRegisterRequest(
     val password: String
 )
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class UserLoginRequest(
     val email: String,
     val password: String

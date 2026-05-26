@@ -11,4 +11,5 @@
     <string name="or_log_in">Or log in to your account</string>
     <string name="surname">Surname</string>
     <string name="name">Name</string>
+    <string name="unable_to_log_in_check_your_email_and_password">Unable to log in. Check your email and password</string>
 </resources>
