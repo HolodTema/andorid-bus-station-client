@@ -36,7 +36,12 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.navigationView, navController)
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.fragment_shop),
+            setOf(
+                R.id.fragment_shop,
+                R.id.fragment_my_tickets,
+                R.id.fragment_stations,
+                R.id.fragment_settings
+            ),
             binding.drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -50,6 +55,15 @@ class MainActivity : AppCompatActivity() {
                     enableDrawer(false)
                 }
                 R.id.fragment_shop -> {
+                    enableDrawer(true)
+                }
+                R.id.fragment_my_tickets -> {
+                    enableDrawer(true)
+                }
+                R.id.fragment_stations -> {
+                    enableDrawer(true)
+                }
+                R.id.fragment_settings -> {
                     enableDrawer(true)
                 }
             }

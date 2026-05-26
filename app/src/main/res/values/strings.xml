@@ -18,7 +18,7 @@
     <string name="error_email_validation">Error: invalid email format</string>
     <string name="error_password_validation"><![CDATA[Error: password must be >8 symbols and contain a-z symbols]]></string>
     <string name="error_unable_to_register">Unable to register. Try again later</string>
-    <string name="shop">Shop</string>
+    <string name="shop">Buy tickets</string>
     <string name="stations">Stations</string>
     <string name="my_tickets">My tickets</string>
     <string name="settings">Settings</string>

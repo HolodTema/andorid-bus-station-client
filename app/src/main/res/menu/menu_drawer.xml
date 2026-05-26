@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_item_shop"
+        android:id="@+id/fragment_shop"
         android:title="@string/shop"
-        android:icon="@drawable/ic_settings"/>
+        android:icon="@drawable/ic_shop"/>
 
     <item
-        android:id="@+id/menu_item_my_tickets"
+        android:id="@+id/fragment_my_tickets"
         android:title="@string/my_tickets"
-        android:icon="@drawable/ic_settings"/>
+        android:icon="@drawable/ic_my_tickets"/>
 
     <item
-        android:id="@+id/menu_item_stations"
+        android:id="@+id/fragment_stations"
         android:title="@string/stations"
-        android:icon="@drawable/ic_settings"/>
+        android:icon="@drawable/ic_stations"/>
 
     <item
-        android:id="@+id/menu_item_settings"
+        android:id="@+id/fragment_settings"
         android:title="@string/settings"
         android:icon="@drawable/ic_settings"/>
 </menu>
