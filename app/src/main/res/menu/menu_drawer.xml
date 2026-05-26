@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_item_shop"
+        android:title="@string/shop"
+        android:icon="@drawable/ic_settings"/>
+
+    <item
+        android:id="@+id/menu_item_my_tickets"
+        android:title="@string/my_tickets"
+        android:icon="@drawable/ic_settings"/>
+
+    <item
+        android:id="@+id/menu_item_stations"
+        android:title="@string/stations"
+        android:icon="@drawable/ic_settings"/>
+
+    <item
+        android:id="@+id/menu_item_settings"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings"/>
+</menu>
