@@ -1,10 +1,14 @@
 package com.terabyte.busstationclient.activity
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.terabyte.busstationclient.R
 import com.terabyte.busstationclient.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,21 +17,70 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var navController: NavController
+
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        configureWindowInsets()
-
-
+        configureDrawer()
     }
 
-    private fun configureWindowInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+    private fun configureDrawer() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        navController = navHostFragment.navController
+
+        NavigationUI.setupWithNavController(binding.navigationView, navController)
+
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.fragment_shop,
+                R.id.fragment_my_tickets,
+                R.id.fragment_stations,
+                R.id.fragment_settings
+            ),
+            binding.drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.fragment_login -> {
+                    enableDrawer(false)
+                }
+                R.id.fragment_register -> {
+                    enableDrawer(false)
+                }
+                R.id.fragment_shop -> {
+                    enableDrawer(true)
+                }
+                R.id.fragment_my_tickets -> {
+                    enableDrawer(true)
+                }
+                R.id.fragment_stations -> {
+                    enableDrawer(true)
+                }
+                R.id.fragment_settings -> {
+                    enableDrawer(true)
+                }
+            }
         }
+    }
+
+    private fun enableDrawer(enable: Boolean) {
+        if (enable) {
+            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            supportActionBar?.show()
+        } else {
+            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            supportActionBar?.hide()
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
