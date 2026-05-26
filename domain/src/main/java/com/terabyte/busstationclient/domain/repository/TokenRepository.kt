@@ -1,6 +1,6 @@
 package com.terabyte.busstationclient.domain.repository
 
-import com.terabyte.busstationclient.domain.model.TokenModel
+import com.terabyte.busstationclient.domain.model.auth.TokenModel
 
 interface TokenRepository {
 
