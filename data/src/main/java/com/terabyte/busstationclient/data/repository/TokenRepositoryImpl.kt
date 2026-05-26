@@ -1,7 +1,7 @@
 package com.terabyte.busstationclient.data.repository
 
 import com.terabyte.busstationclient.data.storage.local.TokenDataStore
-import com.terabyte.busstationclient.domain.model.TokenModel
+import com.terabyte.busstationclient.domain.model.auth.TokenModel
 import com.terabyte.busstationclient.domain.repository.TokenRepository
 import javax.inject.Inject
 import javax.inject.Singleton
