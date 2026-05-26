@@ -37,9 +37,12 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation(libs.androidx.datastore.preferences)
+
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinx.serialization.converter)
     implementation(libs.kotlinx.serialization)
+    implementation(libs.okhttp.logging.interceptor)
 
     implementation(libs.android.hilt)
     ksp(libs.android.hilt.compiler)
