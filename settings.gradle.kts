@@ -24,4 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "BusStationClient"
 include(":app")
- 
+include(":domain")
+include(":data")
