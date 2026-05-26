@@ -1,56 +1,37 @@
 package com.terabyte.busstationclient.data.storage.remote
 
-import com.terabyte.data.storage.remote.model.auth.LoginRequestJson
-import com.terabyte.data.storage.remote.model.auth.LoginResponseJson
-import com.terabyte.data.storage.remote.model.note.NoteJson
-import com.terabyte.data.storage.remote.model.note.NoteRequestJson
-import com.terabyte.data.storage.remote.model.auth.RegisterRequestJson
-import com.terabyte.data.storage.remote.model.bdui.ComponentJson
-import com.terabyte.data.storage.remote.model.user.UserDetailsJson
+import com.terabyte.busstationclient.data.storage.remote.model.Bus
+import com.terabyte.busstationclient.data.storage.remote.model.CreateTicketRequest
+import com.terabyte.busstationclient.data.storage.remote.model.Station
+import com.terabyte.busstationclient.data.storage.remote.model.User
+import com.terabyte.busstationclient.data.storage.remote.model.UserAuthResponse
+import com.terabyte.busstationclient.data.storage.remote.model.UserLoginRequest
+import com.terabyte.busstationclient.data.storage.remote.model.UserRegisterRequest
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface RetrofitService {
 
-    @POST("api/auth/login")
-    suspend fun login(@Body loginRequestJson: LoginRequestJson): Response<LoginResponseJson>
+    @POST("api/auth/user/login")
+    suspend fun login(@Body userLoginRequest: UserLoginRequest): Response<UserAuthResponse>
 
-    @POST("api/auth/register")
-    suspend fun register(@Body registerRequestJson: RegisterRequestJson): Response<LoginResponseJson>
+    @POST("api/auth/user/register")
+    suspend fun register(@Body userRegisterRequest: UserRegisterRequest): Response<UserAuthResponse>
 
-    @GET("api/notes")
-    suspend fun getAllNotes(): Response<List<NoteJson>>
+    @GET("api/user/{id}")
+    suspend fun getUserById(@Query("id") userId: Int): Response<User>
 
-    @GET("api/user")
-    suspend fun getUserDetails(): Response<UserDetailsJson>
+    @GET("api/station")
+    suspend fun getAllStations(): Response<List<Station>>
 
+    @GET("api/bus/{id}")
+    suspend fun getBusById(@Query("id") busId: Int): Response<Bus>
 
     // actually we do not handle body of this POST request. That is why we use ResponseBody type
-    @POST("api/notes")
-    suspend fun createNote(@Body noteRequestJson: NoteRequestJson): Response<ResponseBody>
-
-
-    // actually we do not handle body of this PUT request. That is why we use ResponseBody type
-    @PUT("api/notes/{id}")
-    suspend fun updateNote(
-        @Query("id") noteId: Int,
-        @Body noteRequestJson: NoteRequestJson
-    ): Response<ResponseBody>
-
-    @DELETE("api/notes/{id}")
-    suspend fun deleteNote(
-        @Query("id") noteId: Int,
-    ): Response<ResponseBody>
-
-    @GET("api/notes/{id}")
-    suspend fun getNoteById(@Query("id") noteId: Int): Response<NoteJson>
-
-    @GET("api/bd_ui/create_note")
-    suspend fun getCreateNoteScreenBdUi(): Response<ComponentJson>
+    @POST("api/ticket")
+    suspend fun createNote(@Body createTicketRequest: CreateTicketRequest): Response<ResponseBody>
 }
