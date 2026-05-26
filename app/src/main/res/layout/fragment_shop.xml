@@ -1,6 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
+    <TextView
+        android:id="@+id/text_caption_from_station"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/from_station"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_from_station"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_from_station" />
+
+    <TextView
+        android:id="@+id/text_from_station"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/background_text_from_to_station"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_caption_from_station"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Station name" />
+
+    <ImageButton
+        android:id="@+id/button_exchange_stations"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_exchange_stations"
+        app:layout_constraintEnd_toEndOf="@+id/text_caption_from_station"
+        app:layout_constraintStart_toStartOf="@+id/text_caption_from_station"
+        app:layout_constraintTop_toBottomOf="@+id/text_caption_from_station" />
+
+
+    <TextView
+        android:id="@+id/text_caption_to_station"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/to_station"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_to_station"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_to_station" />
+
+    <TextView
+        android:id="@+id/text_to_station"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/background_text_from_to_station"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_caption_to_station"
+        app:layout_constraintTop_toBottomOf="@+id/button_exchange_stations"
+        tools:text="Station name" />
+
+    <TextView
+        android:id="@+id/text_caption_date"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/date"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_date" />
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/background_text_from_to_station"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_caption_date"
+        app:layout_constraintTop_toBottomOf="@+id/text_to_station"
+        tools:text="YYYY_MM_DD" />
+
+    <ImageButton
+        android:id="@+id/button_update_search_results"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_update"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_caption_filter_by"
+        app:layout_constraintBottom_toBottomOf="@id/text_caption_filter_by"/>
+
+    <TextView
+        android:id="@+id/text_caption_filter_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_by"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_filter_by"
+        app:layout_constraintStart_toEndOf="@id/button_update_search_results"
+        app:layout_constraintTop_toTopOf="@+id/spinner_filter_by" />
+
+    <Spinner
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_filter_by"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/text_caption_filter_by"
+        app:layout_constraintTop_toBottomOf="@+id/text_date"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="8dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_voyages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_filter_by"
+        tools:layout_editor_absoluteX="8dp" />
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
