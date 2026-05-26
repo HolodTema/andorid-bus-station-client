@@ -58,6 +58,11 @@
         android:id="@+id/fragment_settings"
         android:name="com.terabyte.busstationclient.ui.fragment.SettingsFragment"
         android:label="@string/settings">
+        <action
+            android:id="@+id/action_from_settings_to_login"
+            app:destination="@id/fragment_login"
+            app:popUpTo="@id/fragment_settings"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 </navigation>
