@@ -37,6 +37,10 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlinx.serialization.converter)
+    implementation(libs.kotlinx.serialization)
+
     implementation(libs.android.hilt)
     ksp(libs.android.hilt.compiler)
 
