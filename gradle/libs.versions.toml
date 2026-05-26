@@ -9,6 +9,13 @@ material = "1.14.0"
 activity = "1.13.0"
 constraintlayout = "2.2.1"
 jetbrainsKotlinJvm = "2.2.10"
+ksp = "2.3.6"
+hilt = "2.59.2"
+javaxInject = "1"
+androidxHilt = "1.3.0"
+lifecycle = "2.10.0"
+
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -19,9 +26,19 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+# Hilt
+android-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+android-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+# to use viewModelScope DSL
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+# javax.inject.Inject annotation for domain layer
+javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
