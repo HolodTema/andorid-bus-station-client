@@ -33,5 +33,5 @@ interface RetrofitService {
 
     // actually we do not handle body of this POST request. That is why we use ResponseBody type
     @POST("api/ticket")
-    suspend fun createNote(@Body createTicketRequest: CreateTicketRequest): Response<ResponseBody>
+    suspend fun createTicket(@Body createTicketRequest: CreateTicketRequest): Response<ResponseBody>
 }

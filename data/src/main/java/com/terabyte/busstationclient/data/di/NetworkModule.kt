@@ -2,6 +2,7 @@ package com.terabyte.busstationclient.data.di
 
 import com.terabyte.busstationclient.data.storage.remote.NetworkStorage
 import com.terabyte.busstationclient.data.storage.remote.NetworkStorageImpl
+import com.terabyte.busstationclient.data.storage.remote.RetrofitService
 import com.terabyte.busstationclient.data.storage.remote.TokenHttpInterceptor
 import dagger.Binds
 import dagger.Module
@@ -14,6 +15,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import retrofit2.create
 import javax.inject.Singleton
 
 
@@ -74,6 +76,12 @@ abstract class NetworkModule {
                 .client(client)
                 .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
                 .build()
+        }
+
+        @Provides
+        @Singleton
+        fun provideRetrofitService(retrofit: Retrofit): RetrofitService {
+            return retrofit.create<RetrofitService>()
         }
     }
 }
