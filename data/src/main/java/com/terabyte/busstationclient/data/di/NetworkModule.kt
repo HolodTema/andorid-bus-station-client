@@ -43,12 +43,6 @@ abstract class NetworkModule {
 
         @Provides
         @Singleton
-        fun provideTokenHttpInterceptor(): TokenHttpInterceptor {
-            return TokenHttpInterceptor()
-        }
-
-        @Provides
-        @Singleton
         fun provideOkHttpClient(
             loggingInterceptor: HttpLoggingInterceptor,
             tokenHttpInterceptor: TokenHttpInterceptor
