@@ -37,6 +37,8 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation(libs.androidx.datastore.preferences)
+
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinx.serialization.converter)
     implementation(libs.kotlinx.serialization)
