@@ -2,11 +2,13 @@ package com.terabyte.busstationclient.data.storage.remote
 
 import com.terabyte.busstationclient.data.storage.remote.model.Bus
 import com.terabyte.busstationclient.data.storage.remote.model.CreateTicketRequest
+import com.terabyte.busstationclient.data.storage.remote.model.GetVoyagesByStationsAndDateRequest
 import com.terabyte.busstationclient.data.storage.remote.model.Station
 import com.terabyte.busstationclient.data.storage.remote.model.User
 import com.terabyte.busstationclient.data.storage.remote.model.UserAuthResponse
 import com.terabyte.busstationclient.data.storage.remote.model.UserLoginRequest
 import com.terabyte.busstationclient.data.storage.remote.model.UserRegisterRequest
+import com.terabyte.busstationclient.data.storage.remote.model.Voyage
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -34,4 +36,7 @@ interface RetrofitService {
     // actually we do not handle body of this POST request. That is why we use ResponseBody type
     @POST("api/ticket")
     suspend fun createTicket(@Body createTicketRequest: CreateTicketRequest): Response<ResponseBody>
+
+    @GET("api/voyage/byStationsAndDate")
+    suspend fun getVoyagesByStationsAndDate(@Body request: GetVoyagesByStationsAndDateRequest): Response<List<Voyage>>
 }

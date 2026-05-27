@@ -2,19 +2,21 @@ package com.terabyte.busstationclient.data.storage.remote
 
 import com.terabyte.busstationclient.data.storage.remote.model.Bus
 import com.terabyte.busstationclient.data.storage.remote.model.CreateTicketRequest
+import com.terabyte.busstationclient.data.storage.remote.model.GetVoyagesByStationsAndDateRequest
 import com.terabyte.busstationclient.data.storage.remote.model.RequestError
 import com.terabyte.busstationclient.data.storage.remote.model.Station
 import com.terabyte.busstationclient.data.storage.remote.model.User
 import com.terabyte.busstationclient.data.storage.remote.model.UserAuthResponse
 import com.terabyte.busstationclient.data.storage.remote.model.UserLoginRequest
 import com.terabyte.busstationclient.data.storage.remote.model.UserRegisterRequest
+import com.terabyte.busstationclient.data.storage.remote.model.Voyage
 import retrofit2.Response
 import javax.inject.Inject
 
 
 class NetworkStorageImpl @Inject constructor(
     private val retrofitService: RetrofitService
-): NetworkStorage {
+) : NetworkStorage {
 
     override suspend fun login(userLoginRequest: UserLoginRequest): Result<UserAuthResponse> {
         val response = retrofitService.login(userLoginRequest)
@@ -45,32 +47,32 @@ class NetworkStorageImpl @Inject constructor(
         val response = retrofitService.createTicket(createTicketRequest)
         return if (response.isSuccessful) {
             null
-        }
-        else {
+        } else {
             if (response.code() == 401) {
                 RequestError.TokenExpiredError()
-            }
-            else {
+            } else {
                 RequestError.UnknownError()
             }
         }
     }
 
-    private fun<T> wrapResponseInResultObject(response: Response<T>): Result<T> {
+    override suspend fun getVoyagesByStationsAndDate(request: GetVoyagesByStationsAndDateRequest): Result<List<Voyage>> {
+        val response = retrofitService.getVoyagesByStationsAndDate(request)
+        return wrapResponseInResultObject(response)
+    }
+
+    private fun <T> wrapResponseInResultObject(response: Response<T>): Result<T> {
         return if (response.isSuccessful) {
             val body = response.body()
             if (body == null) {
                 Result.failure(RequestError.UnknownError())
-            }
-            else {
+            } else {
                 Result.success(body)
             }
-        }
-        else {
+        } else {
             if (response.code() == 401) {
                 Result.failure(RequestError.TokenExpiredError())
-            }
-            else {
+            } else {
                 Result.failure(RequestError.UnknownError())
             }
         }

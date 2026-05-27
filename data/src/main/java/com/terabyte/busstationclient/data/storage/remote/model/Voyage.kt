@@ -4,7 +4,7 @@ import com.terabyte.busstationclient.data.storage.remote.model.util.LocalDateTim
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class Voyage(
     val id: Int,
     val name: String,
@@ -17,4 +17,12 @@ data class Voyage(
     val cost: Int,
     val driverId: Int,
     val busId: Int
+)
+
+@Serializable
+data class GetVoyagesByStationsAndDateRequest(
+    val startStationId: Int,
+    val endStationId: Int,
+    @Serializable(with = LocalDateTimeSerializer::class)
+    val date: LocalDateTime
 )
