@@ -37,6 +37,6 @@ interface RetrofitService {
     @POST("api/ticket")
     suspend fun createTicket(@Body createTicketRequest: CreateTicketRequest): Response<ResponseBody>
 
-    @GET("api/voyage/byStationsAndDate")
+    @POST("api/voyage/byStationsAndDate")
     suspend fun getVoyagesByStationsAndDate(@Body request: GetVoyagesByStationsAndDateRequest): Response<List<Voyage>>
 }

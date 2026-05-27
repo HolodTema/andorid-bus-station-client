@@ -18,6 +18,7 @@ kotlinxSerialization = "1.11.0"
 okhttp = "5.3.2"
 datastore = "1.2.1"
 navigation = "2.9.8"
+androidTools = "2.1.5"
 
 
 
@@ -47,7 +48,8 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 # Navigation component
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
-
+# to use LocalDateTime.parse() in api24+, not only in api26+. This approach is called desugaring
+android-tools-desugar = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidTools" }
 
 
 

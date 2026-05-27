@@ -76,8 +76,9 @@ class ShopFragment : Fragment() {
 
                             binding.progressVoyagesLoading.visibility = View.INVISIBLE
 
-                            binding.textFromStation.text = state.stationFrom.name
-                            binding.textToStation.text = state.stationTo.name
+                            binding.textFromStation.text = state.startStation.name
+                            binding.textToStation.text = state.endStation.name
+                            binding.textDate.text = state.date.year.toString()
 
                             if (state.listVoyages.isEmpty()) {
                                 binding.recyclerVoyages.visibility = View.INVISIBLE

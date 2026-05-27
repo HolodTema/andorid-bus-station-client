@@ -16,11 +16,9 @@ class TokenHttpInterceptor @Inject constructor(
         val originalRequest = chain.request()
         val httpPath = originalRequest.url.encodedPath
 
-        val isRequestToUserApi = httpPath.contains("/api/user")
-        val isRequestToNotesApi = httpPath.contains("/api/notes")
-        val isRequestToBdUiApi = httpPath.contains("/api/bd_ui")
+        val isRequestToAuth = httpPath.contains("/api/auth")
 
-        if (!(isRequestToNotesApi || isRequestToUserApi || isRequestToBdUiApi)) {
+        if (isRequestToAuth) {
             return chain.proceed(originalRequest)
         }
 
