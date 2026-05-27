@@ -122,11 +122,11 @@ class ShopFragment : Fragment() {
         }
 
         binding.textFromStation.setOnClickListener {
-
+            findNavController().navigate(R.id.action_from_shop_to_choose_station)
         }
 
         binding.textToStation.setOnClickListener {
-
+            findNavController().navigate(R.id.action_from_shop_to_choose_station)
         }
     }
 
