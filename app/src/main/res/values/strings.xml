@@ -27,4 +27,6 @@
     <string name="to_station">To station:</string>
     <string name="date">Date:</string>
     <string name="filter_by">Filter by:</string>
+    <string name="from">FROM:</string>
+    <string name="to">TO:</string>
 </resources>
