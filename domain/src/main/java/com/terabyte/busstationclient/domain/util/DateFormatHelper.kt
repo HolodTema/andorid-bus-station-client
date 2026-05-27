@@ -5,9 +5,14 @@ import java.time.format.DateTimeFormatter
 
 object DateFormatHelper {
 
-    private val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
+    private val formatterWithTime = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
+    private val formatterNoTime = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 
-    fun formatDate(date: LocalDateTime): String {
-        return date.format(formatter)
+    fun formatDateWithTime(date: LocalDateTime): String {
+        return date.format(formatterWithTime)
+    }
+
+    fun formatDateNoTime(date: LocalDateTime): String {
+        return date.format(formatterNoTime)
     }
 }

@@ -18,10 +18,10 @@ class ShopVoyageHolder(
 
     fun bind(voyage: Voyage, onBuyClicked: () -> Unit) {
         binding.textName.text = voyage.name
-        binding.textStartTime.text = DateFormatHelper.formatDate(voyage.startTime)
+        binding.textStartTime.text = DateFormatHelper.formatDateWithTime(voyage.startTime)
         binding.textFromStation.text = startStation.name
         binding.textToStation.text = endStation.name
-        binding.textEndTime.text = DateFormatHelper.formatDate(voyage.endTime)
+        binding.textEndTime.text = DateFormatHelper.formatDateWithTime(voyage.endTime)
         binding.textPrice.text = "${voyage.cost} RUB"
         binding.textButtonBuy.setOnClickListener {
             onBuyClicked()

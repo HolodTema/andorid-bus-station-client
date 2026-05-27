@@ -140,6 +140,16 @@ class ShopViewModel @Inject constructor(
         val endStation = listAllStations.find { it.id == endStationId }!!
         loadVoyagesByStationsAndDate(state.startStation, endStation, state.date)
     }
+
+    fun updateDate(
+        date: LocalDateTime
+    ) {
+        val state = stateFlowShopScreenState.value
+        if (state !is ShopScreenState.Idle) {
+            return
+        }
+        loadVoyagesByStationsAndDate(state.startStation, state.endStation, date)
+    }
 }
 
 sealed class ShopScreenState {

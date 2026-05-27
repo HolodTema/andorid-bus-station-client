@@ -1,5 +1,6 @@
 package com.terabyte.busstationclient.ui.fragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +16,14 @@ import androidx.navigation.fragment.findNavController
 import com.terabyte.busstationclient.R
 import com.terabyte.busstationclient.databinding.FragmentShopBinding
 import com.terabyte.busstationclient.domain.model.shop.VoyageFilterCriteria
+import com.terabyte.busstationclient.domain.util.DateFormatHelper
 import com.terabyte.busstationclient.ui.adapter.ShopVoyageAdapter
 import com.terabyte.busstationclient.viewmodel.ShopScreenState
 import com.terabyte.busstationclient.viewmodel.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.util.Calendar
 
 @AndroidEntryPoint
 class ShopFragment : Fragment() {
@@ -27,10 +31,6 @@ class ShopFragment : Fragment() {
     private val viewModel: ShopViewModel by viewModels()
 
     private lateinit var binding: FragmentShopBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +62,7 @@ class ShopFragment : Fragment() {
 
                             binding.progressVoyagesLoading.visibility = View.VISIBLE
                         }
+
                         is ShopScreenState.Idle -> {
                             binding.textCaptionFromStation.visibility = View.VISIBLE
                             binding.textFromStation.visibility = View.VISIBLE
@@ -78,17 +79,19 @@ class ShopFragment : Fragment() {
 
                             binding.textFromStation.text = state.startStation.name
                             binding.textToStation.text = state.endStation.name
-                            binding.textDate.text = state.date.year.toString()
+                            binding.textDate.text = DateFormatHelper.formatDateNoTime(state.date)
 
                             if (state.listVoyages.isEmpty()) {
                                 binding.recyclerVoyages.visibility = View.INVISIBLE
                                 binding.textCaptionNoVoyages.visibility = View.VISIBLE
-                            }
-                            else {
+                            } else {
                                 binding.recyclerVoyages.visibility = View.VISIBLE
                                 binding.textCaptionNoVoyages.visibility = View.INVISIBLE
 
-                                val adapter = ShopVoyageAdapter(state.startStation, state.endStation) { voyage ->
+                                val adapter = ShopVoyageAdapter(
+                                    state.startStation,
+                                    state.endStation
+                                ) { voyage ->
 
                                 }
                                 binding.recyclerVoyages.adapter = adapter
@@ -96,16 +99,26 @@ class ShopFragment : Fragment() {
                             }
 
                             binding.buttonExchangeStations.setOnClickListener {
-                                viewModel.loadVoyagesByStationsAndDate(state.endStation, state.startStation, state.date)
+                                viewModel.loadVoyagesByStationsAndDate(
+                                    state.endStation,
+                                    state.startStation,
+                                    state.date
+                                )
                             }
 
                             binding.buttonUpdateSearchResults.setOnClickListener {
-                                viewModel.loadVoyagesByStationsAndDate(state.startStation, state.endStation, state.date)
+                                viewModel.loadVoyagesByStationsAndDate(
+                                    state.startStation,
+                                    state.endStation,
+                                    state.date
+                                )
                             }
                         }
+
                         is ShopScreenState.TokenExpiredError -> {
                             findNavController().navigate(R.id.action_from_shop_to_token_expired_error)
                         }
+
                         is ShopScreenState.NoInternetError -> {
                             findNavController().navigate(R.id.action_from_shop_to_no_internet_error)
                         }
@@ -117,7 +130,9 @@ class ShopFragment : Fragment() {
         configureSpinner()
 
         binding.textDate.setOnClickListener {
-
+            showDatePickerDialog { date ->
+                viewModel.updateDate(date)
+            }
         }
 
         binding.textFromStation.setOnClickListener {
@@ -130,11 +145,17 @@ class ShopFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        parentFragmentManager.setFragmentResultListener("chooseStartStation", viewLifecycleOwner) { _, bundle ->
+        parentFragmentManager.setFragmentResultListener(
+            "chooseStartStation",
+            viewLifecycleOwner
+        ) { _, bundle ->
             val startStationId = bundle.getInt("stationId")
             viewModel.updateStartStation(startStationId)
         }
-        parentFragmentManager.setFragmentResultListener("chooseEndStation", viewLifecycleOwner) { _, bundle ->
+        parentFragmentManager.setFragmentResultListener(
+            "chooseEndStation",
+            viewLifecycleOwner
+        ) { _, bundle ->
             val endStationId = bundle.getInt("stationId")
             viewModel.updateEndStation(endStationId)
         }
@@ -146,26 +167,48 @@ class ShopFragment : Fragment() {
             ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, spinnerItems)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerFilterBy.adapter = adapter
-        binding.spinnerFilterBy.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                when (position) {
-                    0 -> {
-                        viewModel.updateFilterCriteria(VoyageFilterCriteria.BY_PRICE)
-                    }
-                    1 -> {
-                        viewModel.updateFilterCriteria(VoyageFilterCriteria.BY_TIME_OF_DEPARTURE)
+        binding.spinnerFilterBy.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    when (position) {
+                        0 -> {
+                            viewModel.updateFilterCriteria(VoyageFilterCriteria.BY_PRICE)
+                        }
+
+                        1 -> {
+                            viewModel.updateFilterCriteria(VoyageFilterCriteria.BY_TIME_OF_DEPARTURE)
+                        }
                     }
                 }
-            }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                // do nothing
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    // do nothing
+                }
             }
+    }
+
+    private fun showDatePickerDialog(onDateSelected: (LocalDateTime) -> Unit) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        DatePickerDialog(
+            requireActivity(),
+            { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+                val dateTime =
+                    LocalDateTime.of(selectedYear, selectedMonth + 1, selectedDayOfMonth, 0, 0)
+                onDateSelected(dateTime)
+            },
+            year, month, day
+        ).apply {
+            datePicker.minDate = calendar.timeInMillis
+            show()
         }
     }
 }
