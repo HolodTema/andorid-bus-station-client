@@ -33,8 +33,10 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        // enable desugaring to use LocalDateTime.parse() method in api24+, not in api26+ only
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
     }
     buildFeatures {
         viewBinding = true
@@ -44,6 +46,10 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
+
+    coreLibraryDesugaring(libs.android.tools.desugar)
+
+    implementation(libs.androidx.recyclerview)
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

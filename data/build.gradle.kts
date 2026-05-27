@@ -30,8 +30,10 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        // enable desugaring to use LocalDateTime.parse() method in api24+, not in api26+ only
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
     }
 }
 
@@ -39,6 +41,8 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(libs.androidx.datastore.preferences)
+
+    coreLibraryDesugaring(libs.android.tools.desugar)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinx.serialization.converter)

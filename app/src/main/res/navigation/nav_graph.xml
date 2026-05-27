@@ -12,12 +12,12 @@
             android:id="@+id/action_from_login_to_register"
             app:destination="@id/fragment_register"
             app:popUpTo="@id/fragment_login"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_from_login_to_shop"
             app:destination="@id/fragment_shop"
             app:popUpTo="@id/fragment_login"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -28,36 +28,105 @@
             android:id="@+id/action_from_register_to_login"
             app:destination="@id/fragment_login"
             app:popUpTo="@id/fragment_register"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_from_register_to_shop"
             app:destination="@id/fragment_shop"
             app:popUpTo="@id/fragment_register"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_shop"
         android:name="com.terabyte.busstationclient.ui.fragment.ShopFragment"
         android:label="@string/shop">
+        <action
+            android:id="@+id/action_from_shop_to_token_expired_error"
+            app:destination="@id/fragment_token_expired_error"
+            app:popUpTo="@id/fragment_shop"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_from_shop_to_no_internet_error"
+            app:destination="@id/fragment_no_internet_error"
+            app:popUpTo="@id/fragment_shop"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_from_shop_to_choose_station"
+            app:destination="@id/fragment_choose_station" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_my_tickets"
         android:name="com.terabyte.busstationclient.ui.fragment.MyTicketsFragment"
         android:label="@string/my_tickets">
+        <action
+            android:id="@+id/action_from_my_tickets_to_token_expired_error"
+            app:destination="@id/fragment_token_expired_error"
+            app:popUpTo="@id/fragment_my_tickets"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_stations"
         android:name="com.terabyte.busstationclient.ui.fragment.StationsFragment"
         android:label="@string/stations">
+        <action
+            android:id="@+id/action_from_stations_to_token_expired_error"
+            app:destination="@id/fragment_token_expired_error"
+            app:popUpTo="@id/fragment_stations"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_settings"
         android:name="com.terabyte.busstationclient.ui.fragment.SettingsFragment"
         android:label="@string/settings">
+        <action
+            android:id="@+id/action_from_settings_to_login"
+            app:destination="@id/fragment_login"
+            app:popUpTo="@id/fragment_settings"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_token_expired_error"
+        android:name="com.terabyte.busstationclient.ui.fragment.TokenExpiredErrorFragment"
+        android:label="@string/token_expired_error">
+        <action
+            android:id="@+id/action_from_token_expired_error_to_login"
+            app:destination="@id/fragment_login"
+            app:popUpTo="@id/fragment_token_expired_error"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_no_internet_error"
+        android:name="com.terabyte.busstationclient.ui.fragment.NoInternetErrorFragment"
+        android:label="@string/no_internet_error">
+        <action
+            android:id="@+id/action_from_no_internet_error_to_shop"
+            app:destination="@id/fragment_shop"
+            app:popUpTo="@id/fragment_no_internet_error"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_choose_station"
+        android:name="com.terabyte.busstationclient.ui.fragment.ChooseStationFragment"
+        android:label="@string/choose_station">
+        <argument
+            android:name="stationType"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_from_choose_station_to_token_expired_error"
+            app:destination="@id/fragment_token_expired_error"
+            app:popUpTo="@id/fragment_choose_station"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_from_choose_station_to_no_internet_error"
+            app:destination="@id/fragment_no_internet_error"
+            app:popUpTo="@id/fragment_choose_station"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

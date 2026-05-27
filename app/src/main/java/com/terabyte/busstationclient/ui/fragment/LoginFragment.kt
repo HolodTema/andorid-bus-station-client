@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -26,8 +27,17 @@ class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
 
+    private lateinit var backCallback: OnBackPressedCallback
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        backCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Ничего не делаем – кнопка "Назад" игнорируется
+                // Можно показать диалог "Нельзя вернуться"
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, backCallback)
     }
 
     override fun onCreateView(
@@ -121,6 +131,11 @@ class LoginFragment : Fragment() {
                 viewModel.updatePassword(p0.toString())
             }
         })
+    }
+
+    override fun onDestroy() {
+        backCallback.remove()
+        super.onDestroy()
     }
 
 }
