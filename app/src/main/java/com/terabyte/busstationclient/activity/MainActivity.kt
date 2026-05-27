@@ -66,6 +66,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragment_settings -> {
                     enableDrawer(true)
                 }
+                R.id.fragment_token_expired_error -> {
+                    enableDrawer(false)
+                }
+                R.id.fragment_no_internet_error -> {
+                    enableDrawer(false)
+                }
             }
         }
     }

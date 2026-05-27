@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.terabyte.busstationclient.R
 import com.terabyte.busstationclient.databinding.FragmentShopBinding
 import com.terabyte.busstationclient.domain.model.shop.VoyageFilterCriteria
@@ -86,6 +87,12 @@ class ShopFragment : Fragment() {
                                 binding.recyclerVoyages.visibility = View.VISIBLE
                                 binding.textCaptionNoVoyages.visibility = View.INVISIBLE
                             }
+                        }
+                        is ShopScreenState.TokenExpiredError -> {
+                            findNavController().navigate(R.id.action_from_shop_to_token_expired_error)
+                        }
+                        is ShopScreenState.NoInternetError -> {
+                            findNavController().navigate(R.id.action_from_shop_to_no_internet_error)
                         }
                     }
                 }

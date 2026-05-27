@@ -67,7 +67,7 @@ class ShopViewModel @Inject constructor(
     }
 
     private fun loadVoyagesByStationsAndDate(stationFrom: Station, stationTo: Station, date: LocalDateTime) {
-        
+
     }
 }
 
