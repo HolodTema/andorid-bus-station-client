@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="voyages_filter_criteria">
+        <item>By price</item>
+        <item>By time of departure</item>
+    </string-array>
+</resources>

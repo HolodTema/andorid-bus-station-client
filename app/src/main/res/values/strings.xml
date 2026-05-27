@@ -29,4 +29,6 @@
     <string name="filter_by">Filter by:</string>
     <string name="from">FROM:</string>
     <string name="to">TO:</string>
+    <string name="voyages_are_not_found_try_changing_stations_or_date">Voyages are not found. Try changing stations or date.</string>
+    <string name="buy">BUY</string>
 </resources>
