@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.terabyte.busstationclient.R
 import com.terabyte.busstationclient.databinding.FragmentShopBinding
 import com.terabyte.busstationclient.domain.model.shop.VoyageFilterCriteria
+import com.terabyte.busstationclient.ui.adapter.ShopVoyageAdapter
 import com.terabyte.busstationclient.viewmodel.ShopScreenState
 import com.terabyte.busstationclient.viewmodel.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -87,6 +88,20 @@ class ShopFragment : Fragment() {
                             else {
                                 binding.recyclerVoyages.visibility = View.VISIBLE
                                 binding.textCaptionNoVoyages.visibility = View.INVISIBLE
+
+                                val adapter = ShopVoyageAdapter(state.startStation, state.endStation) { voyage ->
+
+                                }
+                                binding.recyclerVoyages.adapter = adapter
+                                adapter.submitList(state.listVoyages)
+                            }
+
+                            binding.buttonExchangeStations.setOnClickListener {
+                                viewModel.loadVoyagesByStationsAndDate(state.endStation, state.startStation, state.date)
+                            }
+
+                            binding.buttonUpdateSearchResults.setOnClickListener {
+                                viewModel.loadVoyagesByStationsAndDate(state.startStation, state.endStation, state.date)
                             }
                         }
                         is ShopScreenState.TokenExpiredError -> {
@@ -101,14 +116,6 @@ class ShopFragment : Fragment() {
         }
 
         configureSpinner()
-
-        binding.buttonExchangeStations.setOnClickListener {
-
-        }
-
-        binding.buttonUpdateSearchResults.setOnClickListener {
-
-        }
 
         binding.textDate.setOnClickListener {
 

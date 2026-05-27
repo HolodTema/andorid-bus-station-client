@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ShopViewModel @Inject constructor(
     private val loadAllStationsUseCase: LoadAllStationsUseCase,
-    private val loadVoyagesByStationsAndDateUseCase: LoadVoyagesByStationsAndDateUseCase
+    private val loadVoyagesByStationsAndDateUseCase: LoadVoyagesByStationsAndDateUseCase,
 ) : ViewModel() {
 
     private var listAllStations = emptyList<Station>()
@@ -80,11 +80,14 @@ class ShopViewModel @Inject constructor(
         }
     }
 
-    private fun loadVoyagesByStationsAndDate(
+    fun loadVoyagesByStationsAndDate(
         startStation: Station,
         endStation: Station,
         date: LocalDateTime
     ) {
+        if (stateFlowShopScreenState.value !is ShopScreenState.Loading) {
+            _stateFlowShopScreenState.value = ShopScreenState.Loading
+        }
         viewModelScope.launch(Dispatchers.IO) {
             val result = loadVoyagesByStationsAndDateUseCase(startStation.id, endStation.id, date)
             withContext(Dispatchers.Main) {
