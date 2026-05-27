@@ -118,6 +118,28 @@ class ShopViewModel @Inject constructor(
             }
         }
     }
+
+    fun updateStartStation(
+        startStationId: Int
+    ) {
+        val state = stateFlowShopScreenState.value
+        if (state !is ShopScreenState.Idle) {
+            return
+        }
+        val startStation = listAllStations.find { it.id == startStationId }!!
+        loadVoyagesByStationsAndDate(startStation, state.endStation, state.date)
+    }
+
+    fun updateEndStation(
+        endStationId: Int
+    ) {
+        val state = stateFlowShopScreenState.value
+        if (state !is ShopScreenState.Idle) {
+            return
+        }
+        val endStation = listAllStations.find { it.id == endStationId }!!
+        loadVoyagesByStationsAndDate(state.startStation, endStation, state.date)
+    }
 }
 
 sealed class ShopScreenState {

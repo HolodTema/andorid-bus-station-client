@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.terabyte.busstationclient.R
 import com.terabyte.busstationclient.databinding.FragmentChooseStationBinding
 import com.terabyte.busstationclient.ui.adapter.StationAdapter
@@ -25,6 +27,8 @@ class ChooseStationFragment : Fragment() {
     private val viewModel: ChooseStationViewModel by viewModels()
 
     private lateinit var binding: FragmentChooseStationBinding
+
+    private val args: ChooseStationFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +68,11 @@ class ChooseStationFragment : Fragment() {
                             binding.textCaptionChooseStation.visibility = View.VISIBLE
 
                             val adapter = StationAdapter(layoutInflater, state.stations) { station ->
-                                findNavController().navigate(R.id.action_from_choose_station_to_shop)
+                                val bundle = Bundle().apply {
+                                    putInt("stationId", station.id)
+                                }
+                                setFragmentResult(args.stationType, bundle)
+                                findNavController().popBackStack()
                             }
                             binding.recyclerStations.adapter = adapter
                         }

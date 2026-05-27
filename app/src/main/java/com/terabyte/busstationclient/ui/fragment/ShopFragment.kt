@@ -42,7 +42,6 @@ class ShopFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.stateFlowShopScreenState.collect { state ->
@@ -122,11 +121,22 @@ class ShopFragment : Fragment() {
         }
 
         binding.textFromStation.setOnClickListener {
-            findNavController().navigate(R.id.action_from_shop_to_choose_station)
+            val action = ShopFragmentDirections.actionFromShopToChooseStation("chooseStartStation")
+            findNavController().navigate(action)
         }
 
         binding.textToStation.setOnClickListener {
-            findNavController().navigate(R.id.action_from_shop_to_choose_station)
+            val action = ShopFragmentDirections.actionFromShopToChooseStation("chooseEndStation")
+            findNavController().navigate(action)
+        }
+
+        parentFragmentManager.setFragmentResultListener("chooseStartStation", viewLifecycleOwner) { _, bundle ->
+            val startStationId = bundle.getInt("stationId")
+            viewModel.updateStartStation(startStationId)
+        }
+        parentFragmentManager.setFragmentResultListener("chooseEndStation", viewLifecycleOwner) { _, bundle ->
+            val endStationId = bundle.getInt("stationId")
+            viewModel.updateEndStation(endStationId)
         }
     }
 
