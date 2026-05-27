@@ -38,4 +38,6 @@
     <string name="try_again">Try again</string>
     <string name="token_expired_error">Token expiration error</string>
     <string name="no_internet_error">No Internet error</string>
+    <string name="choose_station">Choose station:</string>
+    <string name="confirm">Confirm</string>
 </resources>
