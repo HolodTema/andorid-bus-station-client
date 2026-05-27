@@ -40,4 +40,8 @@
     <string name="no_internet_error">No Internet error</string>
     <string name="choose_station">Choose station:</string>
     <string name="confirm">Confirm</string>
+    <string name="has_station_building">Has station building</string>
+    <string name="has_station_restroom">WC on the station</string>
+    <string name="has_station_caffe">There is caffe on the station</string>
+    <string name="has_station_town">The station is in town</string>
 </resources>
